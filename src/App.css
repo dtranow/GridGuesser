@@ -1,0 +1,70 @@
+#root {
+  background-color: rgb(0, 0, 0);
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 75px;
+  background-color: #292929;
+  padding: 5px 25px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.reset-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  width: 80px;
+  height: 80px;
+
+}
+
+.reset-button img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+/* Dropdown button */
+.dropdown-button {
+  padding: 5px 10px; /* Smaller padding */
+  font-size: 14px; /* Smaller font */
+  cursor: pointer;
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+  margin: 5px 0 0; /* Adjust margin */
+  padding: 0;
+  list-style: none;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  position: absolute;
+  min-width: 100px; /* Prevent collapsing */
+  right: 0; /* Align dropdown to the right */
+  z-index: 1000;
+}
+
+.dropdown-menu-option {
+  padding: 5px 10px; /* Smaller padding */
+  font-size: 14px; /* Smaller font */
+  cursor: pointer;
+}
+
+.dropdown-menu-option:hover {
+  background-color: #f0f0f0;
+}
