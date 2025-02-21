@@ -16,8 +16,8 @@ const Navbar: React.FC<props> = ({ difficulty, setDifficulty }) => {
   const [ isOpen, setIsOpen ] = useState<boolean>(false);
   
   const options = [
-    { value: 'normal', label: 'Normal'},
-    { value: 'hard', label: 'Hard'}
+    { value: 'Normal', label: 'Normal'},
+    { value: 'Hard', label: 'Hard'}
   ]
 
   const resetButtonClick = (): void => {
@@ -37,7 +37,8 @@ const Navbar: React.FC<props> = ({ difficulty, setDifficulty }) => {
       <button className='reset-button' onClick={resetButtonClick}>
         <img src={ResetButton} alt="reset button"></img>
       </button>
-      <div>
+      <div className='title-bar'>Wordle</div>
+      <div className='dropdown-container'>
         <button className='dropdown-button' onClick={toggleDropdown}>{difficulty}</button>
         {isOpen && (
           <ul className='dropdown-menu'>{options.map((option) => (
