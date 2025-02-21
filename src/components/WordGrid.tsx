@@ -11,14 +11,15 @@ type props = {
   setWin: (win: boolean) => void;
 }
 
-const WordGrid: React.FC<props> = ({ difficulty, word, guess, setGuess, win, setWin }) => {
+const WordGrid: React.FC<props> = ({ difficulty, word, win, setWin }) => {
   const rows = difficulty === "Normal" ? 6 : 5
   const [guesses, setGuesses] = useState<string[]>([...Array(rows)])
+  const [correctLetters, setCorrectLetters] = useState<string[]>([])
 
   return (
     <div>
       {guesses.map((guess: string, i: number) => (
-        <Wordbox index={i} key={i} guesses={guesses} setGuesses={setGuesses} word={word}/>
+        <Wordbox index={i} key={i} guesses={guesses} setGuesses={setGuesses} word={word} correctLetters={correctLetters}/>
       ))}
     </div>
   )

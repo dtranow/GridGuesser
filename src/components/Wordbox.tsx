@@ -6,9 +6,10 @@ interface props {
   word: string;
   guesses: string[];
   setGuesses: (guesses: string[]) => void;
+  correctLetters: string[];
 }
 
-const Wordbox: React.FC<props> = ({index, guesses, setGuesses, word }) => {
+const Wordbox: React.FC<props> = ({index, guesses, setGuesses, word, correctLetters }) => {
   const [currentGuess, setCurrentGuess] = useState<string[]>([...Array(5)])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, i: number) => {
@@ -25,7 +26,10 @@ const Wordbox: React.FC<props> = ({index, guesses, setGuesses, word }) => {
   }
 
   const handleSubmit = () => {
-
+    let currGuess = currentGuess.join()
+    if(word === currGuess){
+      setWin
+    }
   }
 
   const handleKeyUp = (e: React.KeyboardEvent, i: number) => {

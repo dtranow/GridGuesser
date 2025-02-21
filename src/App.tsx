@@ -7,7 +7,6 @@ import Keyboard from './components/Keyboard';
 const App = () => {
   const [difficulty, setDifficulty] = useState<string>('Normal');
   const [word, setWord] = useState<string>('');
-  const [guess, setGuess] = useState<string>('');
   const [win, setWin] = useState<boolean>()
   
   const fetchData = async (): Promise<string> => {
@@ -31,11 +30,26 @@ const App = () => {
   useEffect(() => {
     randomWordGenerator();
   }, [difficulty])
+
+  useEffect(() => {
+    randomWordGenerator()
+  }, [])
+
+  useEffect(() => {
+    if(win){
+      alert("Congratulations")
+      window.location.reload()
+    }
+    else{
+      alert("You lose")
+      window.location.reload()
+    }
+  }, [win])
   
   return (
     <>
       <Navbar difficulty={difficulty} setDifficulty={setDifficulty} />
-      <WordGrid difficulty={difficulty} word={word} guess={guess} setGuess={setGuess} win={win} setWin={setWin}/>
+      <WordGrid difficulty={difficulty} word={word} win={win} setWin={setWin}/>
       <Keyboard />
     </>
   )
