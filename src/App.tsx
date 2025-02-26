@@ -32,6 +32,18 @@ const App = () => {
     randomWordGenerator();
   }, [difficulty])
   
+  useEffect(() => {
+    if(win === true){
+      alert("Congrats")
+      window.location.reload()
+    }
+    else if(win === false){
+      alert("You lose!")
+      window.location.reload()
+    }
+  }, [win])
+
+
   return (
     <>
       <Navbar difficulty={difficulty} setDifficulty={setDifficulty} />

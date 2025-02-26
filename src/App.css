@@ -138,3 +138,19 @@ body {
   box-shadow: 0 0 5px rgba(255, 85, 85, 0.8);
   caret-color: transparent;
 }
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 16px 0;
+}
+
+.kb-1, .kb-2, .kb-3 {
+  padding: 2px 12px;
+  font-size: 30px;
+  border: solid white 2px;
+  margin: 0.5px;
+  border-radius: 3px;
+}

@@ -18,6 +18,9 @@ const Wordbox: React.FC<props> = ({index, guesses, setGuesses, word }) => {
       newCurrentGuess[i] = e.target.value
       setCurrentGuess(newCurrentGuess)
     }
+    else{
+      e.target.value = ""
+    }
   }
 
   const autoTab = (inputIndex: number, i: number) => {
@@ -25,20 +28,30 @@ const Wordbox: React.FC<props> = ({index, guesses, setGuesses, word }) => {
   }
 
   const handleSubmit = () => {
+    let wordguess: string = currentGuess.join("")
+    let listGuesses = [...guesses]
+    listGuesses[index] = wordguess
+    setGuesses(listGuesses)
+    if(word === wordguess){
 
+    }
+    setCurrentGuess(Array(5).fill(''))
   }
 
   const handleKeyUp = (e: React.KeyboardEvent, i: number) => {
 
     if(e.key === 'Backspace'){
-      let inputNextIndex: number = i - 1 >= 0 ? i - 1 : i
+      let newCurrentGuess = [...currentGuess]
+      newCurrentGuess[i] = ""
+      setCurrentGuess(newCurrentGuess)
+      let inputNextIndex: number = i - 1 >= 0 ? i - 1 : i;
       autoTab(inputNextIndex, index)
     }
-    else if(i === 4 && currentGuess[i] !== '' && e.key === 'Enter'){
+    else if(i === 4 && currentGuess[i] !== "" && e.key === 'Enter'){
       handleSubmit()
       autoTab(0, index + 1)
     }
-    else{
+    else if(e.key >= 'a' && e.key <= 'z' || e.key >= 'A' && e.key <= 'Z'){
       let inputNextIndex: number = i < 4 ? i + 1 : i
       autoTab(inputNextIndex, index)
     }
