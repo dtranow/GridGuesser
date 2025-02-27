@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../App.css'
 
 interface props {
@@ -13,7 +13,11 @@ interface props {
 }
 
 const Wordbox: React.FC<props> = ({index, guesses, setGuesses, word, setWin, usedKeys, setUsedKeys, rows }) => {
-  const [currentGuess, setCurrentGuess] = useState<string[]>([...Array(5)])
+  const [currentGuess, setCurrentGuess] = useState<string[]>([...Array(5).fill("")])
+  
+  useEffect(() => {
+    document.getElementById(`0 0`)?.focus()
+  }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, i: number) => {
     let value = e.target.value.toUpperCase()
@@ -21,16 +25,13 @@ const Wordbox: React.FC<props> = ({index, guesses, setGuesses, word, setWin, use
       let newCurrentGuess = [...currentGuess]
       newCurrentGuess[i] = value
       setCurrentGuess(newCurrentGuess)
-    }
-    else{
-      e.target.value = ""
+      autoTab(i + 1, index)
     }
   }
 
   const autoTab = (inputIndex: number, i: number) => {
     document.getElementById(`${inputIndex} ${i}`)?.focus()
   }
-
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -79,7 +80,6 @@ const Wordbox: React.FC<props> = ({index, guesses, setGuesses, word, setWin, use
   }
 
   const handleKeyUp = (e: React.KeyboardEvent, i: number) => {
-
     if(e.key === 'Backspace'){
       let newCurrentGuess = [...currentGuess]
       newCurrentGuess[i] = ""
@@ -91,22 +91,27 @@ const Wordbox: React.FC<props> = ({index, guesses, setGuesses, word, setWin, use
       handleSubmit(e)
       autoTab(0, index + 1)
     }
-    else if(/^[a-zA-Z]$/.test(e.key)){
-      let inputNextIndex: number = i < 4 ? i + 1 : i
-      autoTab(inputNextIndex, index)
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent, i: number) => {
+    if(currentGuess[i] !== "" && /^[a-zA-Z]$/.test(e.key)){
+      let newCurrentGuess = [...currentGuess]
+      newCurrentGuess[i] = ""
+      setCurrentGuess(newCurrentGuess)
     }
   }
 
   return (
     <div className='wordbox-container'>
-      {currentGuess.map((_, i: number) => (
+      {currentGuess.map((letter: string, i: number) => (
         <input className='wordbox'
           key={i} 
           type="text" 
-          value={currentGuess[i] || ""} 
+          value={letter} 
           id={`${i} ${index}`}
           onChange={(e) => handleChange(e, i)}
           onKeyUp={(e) => handleKeyUp(e, i)}
+          onKeyDown={(e) => handleKeyDown(e, i)}
           />
       ))}
     </div>
