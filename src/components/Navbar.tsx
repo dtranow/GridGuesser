@@ -12,7 +12,7 @@ type props = {
   setDifficulty: (difficulty:string) => void;
 }
 
-const Navbar: React.FC<props> = ({ difficulty, setDifficulty }) => {
+const Navbar: React.FC<props> = ({ difficulty }) => {
   const [ isOpen, setIsOpen ] = useState<boolean>(false);
   
   const options = [
@@ -21,15 +21,16 @@ const Navbar: React.FC<props> = ({ difficulty, setDifficulty }) => {
   ]
 
   const resetButtonClick = (): void => {
-
+    window.location.reload();
   }
   const toggleDropdown = (): void => {
     setIsOpen(!isOpen);
   }
 
   const handleOption = (option: options): void => {
+    localStorage.setItem("difficulty", option.value)
     setIsOpen(false);
-    setDifficulty(option.value);
+    window.location.reload();
   }
 
   return (

@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Navbar from './components/Navbar';
 import WordGrid from './components/WordGrid';
 import Keyboard from './components/Keyboard';
 
 const App = () => {
-  const [difficulty, setDifficulty] = useState<string>('Normal');
+  const [difficulty, setDifficulty] = useState<string>(localStorage.getItem("difficulty") || "Normal");
   const [word, setWord] = useState<string>('');
-  const [guess, setGuess] = useState<string>('');
   const [win, setWin] = useState<boolean>(false)
   const [usedKeys, setUsedKeys] = useState<{ [key: string]: string }>({})
   
@@ -37,8 +36,10 @@ const App = () => {
   
   useEffect(() => {
     if(win === true){
-      alert("Congrats")
-      window.location.reload()
+      setTimeout(() => {
+        alert("Congrats!");
+        window.location.reload();
+      }, 500)
     }
   }, [win])
 
@@ -46,7 +47,7 @@ const App = () => {
   return (
     <>
       <Navbar difficulty={difficulty} setDifficulty={setDifficulty} />
-      <WordGrid difficulty={difficulty} word={word} guess={guess} setGuess={setGuess} win={win} setWin={setWin} setUsedKeys={setUsedKeys} />
+      <WordGrid difficulty={difficulty} word={word} setWin={setWin} usedKeys={usedKeys} setUsedKeys={setUsedKeys} />
       <Keyboard usedKeys={usedKeys}/>
     </>
   )

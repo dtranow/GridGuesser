@@ -8,7 +8,7 @@ body, html {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-color: #333333; /* Match the theme */
+  background-color: #333333;
 }
 
 body {
@@ -47,7 +47,7 @@ body {
 .reset-button {
   width: 60px;
   height: 60px;
-  background-color: #ff5555; /* Among Us red */
+  background-color: #ff5555;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -72,8 +72,8 @@ body {
 }
 
 .dropdown-button {
-  padding: 5px 10px; /* Smaller padding */
-  font-size: 22px; /* Smaller font */
+  padding: 5px 10px;
+  font-size: 22px;
   cursor: pointer;
   background-color: #ff5555;
   border: 1px solid #242323;
@@ -134,7 +134,7 @@ body {
 }
 .wordbox:focus {
   outline: none;
-  border-color: #ff5555; /* Among Us red for focus */
+  border-color: #ff5555;
   box-shadow: 0 0 5px rgba(255, 85, 85, 0.8);
   caret-color: transparent;
 }

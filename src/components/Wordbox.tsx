@@ -7,10 +7,12 @@ interface props {
   guesses: string[];
   setGuesses: (guesses: string[]) => void;
   setWin: (win: boolean) => void;
+  usedKeys: { [key: string]: string };
   setUsedKeys: ( usedKeys: { [key: string]: string }) => void;
+  rows: number;
 }
 
-const Wordbox: React.FC<props> = ({index, guesses, setGuesses, word, setWin, setUsedKeys }) => {
+const Wordbox: React.FC<props> = ({index, guesses, setGuesses, word, setWin, usedKeys, setUsedKeys, rows }) => {
   const [currentGuess, setCurrentGuess] = useState<string[]>([...Array(5)])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, i: number) => {
@@ -29,40 +31,50 @@ const Wordbox: React.FC<props> = ({index, guesses, setGuesses, word, setWin, set
     document.getElementById(`${inputIndex} ${i}`)?.focus()
   }
 
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     let wordguess: string = currentGuess.join("")
     if(!guesses.includes(wordguess)){
+      let currUsedKeys = { ...usedKeys }
       currentGuess.map((letter: string, i: number) => {
         let input: HTMLElement | null = document.getElementById(`${i} ${index}`)
         let letterElement: HTMLElement | null = document.getElementById(letter)
         if(letter == word[i]){
           if(input) input.style.backgroundColor = "green"
           if(letterElement) letterElement.style.backgroundColor = "green"
-          setUsedKeys( {[letter]: "green"} )
         }
         else if(word.includes(letter)){
           if(input) input.style.backgroundColor = "orange"
           if(letterElement) letterElement.style.backgroundColor = "orange"
-          setUsedKeys( {[letter]: "orange"} )
         }
         else{
           if(input) input.style.backgroundColor = "gray"
           if(letterElement) letterElement.style.backgroundColor = "gray"
-          setUsedKeys( {[letter]: "gray"} )
+        }
+        if(letter == word[i]){
+          currUsedKeys[letter] = "green";
+        }
+        else if(word.includes(letter) && usedKeys[letter] !== "green"){
+          currUsedKeys[letter] = "orange";
+        }
+        else if(usedKeys[letter] !== "green" && usedKeys[letter] !== "orange"){
+          currUsedKeys[letter] = "gray";
         }
       })
+      setUsedKeys(currUsedKeys)
     }
-
     let listGuesses = [...guesses]
     listGuesses[index] = wordguess
     setGuesses(listGuesses)
     if(word === wordguess){
       setWin(true)
     }
-    else if(index === 5){
-      alert("You lose!")
-      window.location.reload()
+    else if(index === rows - 1){
+      setTimeout(() => {
+        alert(`You lose! The word is ${word}`);
+        window.location.reload();
+      }, 500)
     }
   }
 
@@ -87,11 +99,11 @@ const Wordbox: React.FC<props> = ({index, guesses, setGuesses, word, setWin, set
 
   return (
     <div className='wordbox-container'>
-      {currentGuess.map((letter: string, i: number) => (
+      {currentGuess.map((_, i: number) => (
         <input className='wordbox'
           key={i} 
           type="text" 
-          value={currentGuess[i]} 
+          value={currentGuess[i] || ""} 
           id={`${i} ${index}`}
           onChange={(e) => handleChange(e, i)}
           onKeyUp={(e) => handleKeyUp(e, i)}
