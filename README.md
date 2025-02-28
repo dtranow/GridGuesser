@@ -12,7 +12,7 @@ GridGuess is a Wordle-style word-guessing game built with **React** and **TypeSc
   - ⬜ Gray: Incorrect letter.  
 - ⌨ **On-Screen Keyboard**: Displays guessed letters with corresponding colors.  
 
-🛠 Technologies
+## 🛠 Technologies
 - React + TypeScript
 - Vite (for fast development)
 - CSS Modules for styling
