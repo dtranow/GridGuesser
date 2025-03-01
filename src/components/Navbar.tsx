@@ -39,7 +39,7 @@ const Navbar: React.FC<props> = ({ difficulty }) => {
         <FaRedo size={24} color='#fff'/>
       </button>
       <div className='title-bar'>
-        GridGuess
+        GridGuesser
         <span className="hover-title" data-text="GridGuess"></span>
       </div>
       <div className='dropdown-container'>
