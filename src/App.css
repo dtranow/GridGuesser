@@ -190,8 +190,8 @@ body {
 }
 
 @keyframes bounce {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
+  0%, 100% {transform: scale(1)}
+  50% {transform: scale(1.15)}
 }
 
 .wordbox-container.win-animation .wordbox {
@@ -200,8 +200,8 @@ body {
 
 @keyframes shake {
   0%, 100% {transform: translate(0,0)}
-  10%, 30%, 50%, 70%, 90% { transform: translate(-2px, -1px); }
-  20%, 40%, 60%, 80% { transform: translate(2px, 1px); }
+  10%, 30%, 50%, 70%, 90% {transform: translate(-2px, -1px)}
+  20%, 40%, 60%, 80% {transform: translate(2px, 1px)}
 }
 
 .shake {
