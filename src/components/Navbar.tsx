@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import ResetButton from '../assets/reset.png'
+import { FaRedo } from 'react-icons/fa'
 import '../App.css'
 
 type options = {
@@ -36,9 +36,12 @@ const Navbar: React.FC<props> = ({ difficulty }) => {
   return (
     <div className='navbar'>
       <button className='reset-button' onClick={resetButtonClick}>
-        <img src={ResetButton} alt="reset button"></img>
+        <FaRedo size={24} color='#fff'/>
       </button>
-      <div className='title-bar'>Wordle</div>
+      <div className='title-bar'>
+        GridGuess
+        <span className="hover-title" data-text="GridGuess"></span>
+      </div>
       <div className='dropdown-container'>
         <button className='dropdown-button' onClick={toggleDropdown}>{difficulty}</button>
         {isOpen && (

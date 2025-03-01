@@ -14,6 +14,7 @@ interface props {
 
 const Wordbox: React.FC<props> = ({index, guesses, setGuesses, word, setWin, usedKeys, setUsedKeys, rows }) => {
   const [currentGuess, setCurrentGuess] = useState<string[]>([...Array(5).fill("")])
+  const [shake, setShake] = useState<boolean>(false)
   
   useEffect(() => {
     document.getElementById(`0 0`)?.focus()
@@ -68,6 +69,11 @@ const Wordbox: React.FC<props> = ({index, guesses, setGuesses, word, setWin, use
     let listGuesses = [...guesses]
     listGuesses[index] = wordguess
     setGuesses(listGuesses)
+    if(word !== wordguess){
+      setShake(true)
+      setTimeout(() =>
+        setShake(false), 500)
+    }
     if(word === wordguess){
       setWin(true)
     }
@@ -102,7 +108,7 @@ const Wordbox: React.FC<props> = ({index, guesses, setGuesses, word, setWin, use
   }
 
   return (
-    <div className='wordbox-container'>
+    <div className={`wordbox-container ${shake? "shake" : ""}`}>
       {currentGuess.map((letter: string, i: number) => (
         <input className='wordbox'
           key={i} 
