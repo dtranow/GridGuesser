@@ -91,8 +91,8 @@ body {
 }
 
 .reset-button:hover {
-  transform: scale(1.08);
-  filter: brightness(80%)
+  transform: scale(1.15);
+  filter: brightness(70%)
 }
 
 .reset-button img {
@@ -117,8 +117,8 @@ body {
   transition: transform 0.2s ease;
 }
 .dropdown-button:hover {
-  transform: scale(1.05);
-  filter: brightness(80%)
+  transform: scale(1.08);
+  filter: brightness(70%)
 }
 
 .dropdown-menu {
@@ -187,6 +187,15 @@ body {
   border: solid white 2px;
   margin: 0.5px;
   border-radius: 3px;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.wordbox-container.win-animation .wordbox {
+  animation: bounce 0.6s ease-in-out 3;
 }
 
 @keyframes shake {

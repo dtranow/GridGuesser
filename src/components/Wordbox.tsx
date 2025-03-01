@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import confetti from 'canvas-confetti'
 import '../App.css'
 
 interface props {
@@ -15,6 +16,7 @@ interface props {
 const Wordbox: React.FC<props> = ({index, guesses, setGuesses, word, setWin, usedKeys, setUsedKeys, rows }) => {
   const [currentGuess, setCurrentGuess] = useState<string[]>([...Array(5).fill("")])
   const [shake, setShake] = useState<boolean>(false)
+  const [winEffect, setWinEffect] = useState<boolean>(false)
   
   useEffect(() => {
     document.getElementById(`0 0`)?.focus()
@@ -39,26 +41,40 @@ const Wordbox: React.FC<props> = ({index, guesses, setGuesses, word, setWin, use
     let wordguess: string = currentGuess.join("")
     if(!guesses.includes(wordguess)){
       let currUsedKeys = { ...usedKeys }
-      currentGuess.map((letter: string, i: number) => {
+      let wordLetterCount: { [key: string]: number } = {}
+      for(let letter of word){
+        wordLetterCount[letter] = (wordLetterCount[letter] || 0) + 1
+      }
+
+      let markedLetters: boolean[] = new Array(5).fill(false)
+
+      currentGuess.forEach((letter: string, i: number) => {
         let input: HTMLElement | null = document.getElementById(`${i} ${index}`)
         let letterElement: HTMLElement | null = document.getElementById(letter)
-        if(letter == word[i]){
+        if(letter === word[i]){
           if(input) input.style.backgroundColor = "green"
           if(letterElement) letterElement.style.backgroundColor = "green"
+          wordLetterCount[letter]--;
+          markedLetters[i] = true
+          currUsedKeys[letter] = "green";
         }
-        else if(word.includes(letter)){
+      })
+
+      currentGuess.forEach((letter: string, i: number) => {
+        let input: HTMLElement | null = document.getElementById(`${i} ${index}`)
+        let letterElement: HTMLElement | null = document.getElementById(letter)
+        if(word.includes(letter) && !markedLetters[i] && wordLetterCount[letter] > 0){
           if(input) input.style.backgroundColor = "orange"
           if(letterElement) letterElement.style.backgroundColor = "orange"
+          wordLetterCount[letter]--;
+          markedLetters[i] = true
         }
-        else{
+        else if(!markedLetters[i]){
           if(input) input.style.backgroundColor = "gray"
           if(letterElement) letterElement.style.backgroundColor = "gray"
         }
-        if(letter == word[i]){
-          currUsedKeys[letter] = "green";
-        }
-        else if(word.includes(letter) && usedKeys[letter] !== "green"){
-          currUsedKeys[letter] = "orange";
+        if(word.includes(letter) && usedKeys[letter] !== "green"){
+          currUsedKeys[letter] = currUsedKeys[letter] === "green" ? "green" : "orange";
         }
         else if(usedKeys[letter] !== "green" && usedKeys[letter] !== "orange"){
           currUsedKeys[letter] = "gray";
@@ -76,6 +92,12 @@ const Wordbox: React.FC<props> = ({index, guesses, setGuesses, word, setWin, use
     }
     if(word === wordguess){
       setWin(true)
+      setWinEffect(true)
+      confetti({
+        particleCount: 200,
+        spread: 120,
+        origin:{y: 0.4}
+      })
     }
     else if(index === rows - 1){
       setTimeout(() => {
@@ -108,7 +130,7 @@ const Wordbox: React.FC<props> = ({index, guesses, setGuesses, word, setWin, use
   }
 
   return (
-    <div className={`wordbox-container ${shake? "shake" : ""}`}>
+    <div className={`wordbox-container ${shake? "shake" : ""} ${winEffect ? "win-animation" : ""}`}>
       {currentGuess.map((letter: string, i: number) => (
         <input className='wordbox'
           key={i} 
