@@ -1,6 +1,6 @@
-# GridGuess 🎯  
+# GridGuesser 🎯  
 
-GridGuess is a Wordle-style word-guessing game built with **React** and **TypeScript**. It challenges players to guess a randomly generated 5-letter word within a limited number of attempts.  
+GridGuesser is a Wordle-style word-guessing game built with **React** and **TypeScript**. It challenges players to guess a randomly generated 5-letter word within a limited number of attempts.  
 
 ## 🚀 Features  
 
