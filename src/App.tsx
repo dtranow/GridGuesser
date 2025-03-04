@@ -12,9 +12,8 @@ const App = () => {
   
   const fetchData = async (): Promise<string> => {
     try{
-      const res = await fetch('https://api.datamuse.com/words?sp=?????&max=100')
+      const res = await fetch('https://api.datamuse.com/words?sp=?????&max=150')
       const data = await res.json()
-      console.log(data)
       return data[Math.floor(Math.random() * data.length)].word;
     }
     catch(error){
@@ -25,7 +24,6 @@ const App = () => {
 
   const randomWordGenerator = async (): Promise<void> => {
     const word = await fetchData()
-    console.log(word)
     let upperWord = word.toUpperCase()
     setWord(upperWord)
   }
