@@ -24,7 +24,6 @@ jobs:
 
       - name: Build project
         run: npm run build
-        working-directory: GridGuesser
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
